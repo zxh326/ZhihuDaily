@@ -12,7 +12,7 @@ def getLastApi():
 
 # 获取Sql 地址
 def getSqlAddr():
-	return cp['Sql']['ADD']
+	return cp['Sql']['ADDR']
 
 # 获取Sql 端口
 def getSqlPort():
