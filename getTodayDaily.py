@@ -46,7 +46,7 @@ def run():
 	with open('Apptmp/daily.log','r') as f:
 		data = eval(f.readlines()[0])
 		title = data['title']
-		url = "http://daily.zhihu.com/story/"+ str(data['id'])
+		url = str(data['id'])	
 	inSertSql(getSqlAddr(),getSqlPort(),getSqlUser(),getSqlPass(),getDb(),getTb(),url,title,today)
 
 if __name__ == '__main__':
