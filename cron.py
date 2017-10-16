@@ -5,7 +5,6 @@ windows 暂不支持
 '''
 
 import sys
-
 from crontab import CronTab,time
 
 def addCron():

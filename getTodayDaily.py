@@ -1,8 +1,12 @@
+import os
+import sys
 import json
 import pymysql
 import requests
 from datetime import *
 from getConfig import *
+
+os.chdir(sys.path[0])
 
 #获取daily
 def getToday(apiUrl,head):
