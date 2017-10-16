@@ -1,6 +1,7 @@
+import sys
 from configparser import ConfigParser
 cp = ConfigParser()
-cp.read('config.ini')
+cp.read(sys.path[0]+'/config.ini')
 
 # 获取头
 def getHead():
