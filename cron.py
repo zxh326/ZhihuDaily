@@ -11,7 +11,7 @@ from crontab import CronTab,time
 def addCron():
 	my_user_cron  = CronTab(user=True)
 
-	command = 'python3' + ' ' + sys.path[0] + '/getTodatDaily.py > /var/log/zhihudaily.log'
+	command = 'python3' + ' ' + sys.path[0] + '/getTodayDaily.py > /var/log/zhihudaily.log'
 
 	job = my_user_cron.new(command=command)
 
