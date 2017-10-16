@@ -23,12 +23,12 @@ def getToday(apiUrl,head):
 	except Exception as e:
 		log(e).Logerror()
 
-def inSertSql(host,port,user,passw,db,tb,url,title,today):
+def inSertSql(host,port,user,passw,db,tb,id,title,today):
 	sql = "INSERT INTO " + str(tb) + " VALUES (%s,%s,%s)"
 	try:
 		tmp = pymysql.connect(host = host,port = int(port),user = user,passwd=passw,db = db,use_unicode = True,charset ='utf8')
 		cur = tmp.cursor()
-		cur.execute(sql,(url,title,today))
+		cur.execute(sql,(id,title,today))
 		tmp.commit()
 		tmp.close()
 		log('insert Mysql Success!').Loginfo()
@@ -46,8 +46,8 @@ def run():
 	with open('Apptmp/daily.log','r') as f:
 		data = eval(f.readlines()[0])
 		title = data['title']
-		url = str(data['id'])	
-	inSertSql(getSqlAddr(),getSqlPort(),getSqlUser(),getSqlPass(),getDb(),getTb(),url,title,today)
+		id = data['id']	
+	inSertSql(getSqlAddr(),getSqlPort(),getSqlUser(),getSqlPass(),getDb(),getTb(),id,title,today)
 
 if __name__ == '__main__':
 	run()
