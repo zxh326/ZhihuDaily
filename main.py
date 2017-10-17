@@ -22,6 +22,7 @@ def index():
 
 
 # 暂时先放这
+@app.route('/api/')
 @app.route('/api/<yourdate>')
 def api(yourdate = None):
     if yourdate ==None:
