@@ -26,7 +26,7 @@ def getToday(apiUrl,head):
 def inSertSql(conn,tb,id,title,today):
     sql = "INSERT INTO " + str(tb) + " VALUES (%s,%s,%s)"
     try:
-        print (type(conn))
+    #    print (type(conn))
         cur = conn.cursor()
         cur.execute(sql,(id,title,today))
         conn.commit()
