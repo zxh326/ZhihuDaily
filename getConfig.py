@@ -51,6 +51,7 @@ def getTb():
     return cp['Sql']['TABLE']
 
 def getTodayStatus():
+    cp.read('config.ini')
     return str(True)==cp['Status']['today']
 
 def UpdateTodayStatus(status):
