@@ -3,6 +3,8 @@ from datetime import *
 
 from cron import addCron
 
+from flask_cors import *
+
 from threading import Thread
 
 from getDailyDetail import run as getDeail
@@ -11,7 +13,7 @@ from flask import Flask,render_template
 
 
 app = Flask(__name__)
-
+CORS(app,supports_credentials=True)
 @app.route('/')
 def index():
     today = date.today()
