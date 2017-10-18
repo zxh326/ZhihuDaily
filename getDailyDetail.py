@@ -5,6 +5,7 @@ from getConfig import *
 from bs4 import BeautifulSoup
 from datetime import timedelta
 result = {}
+questionlist = []
 # TODO:缓存机制 内存先存30-100
 nextday = ''
 def getId(conn,date):
@@ -63,15 +64,20 @@ def getBody(body):
 
 # TODO:暂时只做处理一个ID / json处理起来麻烦
 def getDetail(head,IDlist):
-    # for ID in IDlist:
-    ID = IDlist[0]
-    data = requests.get(getNewsApi()+str(ID),headers=head)
-    data = json.loads(data.text)
-    return getBody(data['body'])
+    for ID in IDlist:
+        ID = IDlist[0]
+        data = requests.get(getNewsApi()+str(ID),headers=head)
+        data = json.loads(data.text)
+        return getBody(data['body'])
+
+
+#这里的date 要大于 2013-5-23,知乎日报的生日为 2013-5-19
 
 def run(date):
     head={}
     global result
+    global questionlist
+    questionlist = []
     result = {}
     head['User-Agent'] = getHead()
     conn = getConn()

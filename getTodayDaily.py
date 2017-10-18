@@ -23,7 +23,7 @@ def getToday(apiUrl,head):
     except Exception as e:
         log(e).Logerror()
 
-def inSertSql(conn,tb,id,title,today)
+def inSertSql(conn,tb,id,title,today):
     sql = "INSERT INTO " + str(tb) + " VALUES (%s,%s,%s)"
     try:
         print (type(conn))
@@ -53,7 +53,7 @@ def run():
     conn = getConn()
     if(conn == -1):
         log('failed').Logerror()
-        break
+        exit(-1)
     else:
         inSertSql(conn,getTb(),id,title,today)
 
