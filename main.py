@@ -16,9 +16,7 @@ app = Flask(__name__)
 def index():
     today = date.today()
     jsontmp = getDeail(today)
-    result = json.dumps(jsontmp,ensure_ascii=False)
-    nextday = jsontmp["nextday"]
-    return result
+    return str(jsontmp)
 
 
 # 暂时先放这
@@ -26,10 +24,9 @@ def index():
 @app.route('/api/<yourdate>')
 def api(yourdate = None):
     if yourdate ==None:
-        return False
+        return 'Error date'
     else:
-        return json.dumps(getDeail(yourdate),ensure_ascii=False)
-
+        return str(getDeail(yourdate))
 
 # 仅程序第一次运行
 def run():
@@ -42,4 +39,4 @@ def run():
         t.join()
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)

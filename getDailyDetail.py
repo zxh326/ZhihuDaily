@@ -3,7 +3,7 @@ import requests
 import pymysql
 from getConfig import *
 from bs4 import BeautifulSoup
-from datetime import timedelta
+from datetime import timedelta,date
 result = {}
 questionlist = []
 # TODO:缓存机制 内存先存30-100
@@ -48,7 +48,6 @@ def getJson(question):
     return tmpquestion
 
 def getBody(body):
-    questionlist = []
     soup = BeautifulSoup(str(body),'html.parser')
     data = soup.select('div.question')
     
@@ -73,7 +72,13 @@ def getDetail(head,IDlist):
 
 #这里的date 要大于 2013-5-23,知乎日报的生日为 2013-5-19
 
-def run(date):
+def run(ydate):
+    try:
+       if ydate < date(2013,5,23):
+            return 'Error date'
+    except:
+        if ydate < '2013-05-23':
+            return 'Error date'
     head={}
     global result
     global questionlist
@@ -81,6 +86,6 @@ def run(date):
     result = {}
     head['User-Agent'] = getHead()
     conn = getConn()
-    IDlist = getId(conn,date)
+    IDlist = getId(conn,ydate)
     conn.close()
     return getDetail(head,IDlist)

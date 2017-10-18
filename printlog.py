@@ -16,8 +16,8 @@ class printLog():
     logger.setLevel(log_level)
 
 
-    def __init__(self,aggr):
-        self.log = aggr
+    def __init__(self,log):
+        self.log = log
 
     def Logdebug(self):
         self.logger.debug(self.log)
