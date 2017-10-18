@@ -1,5 +1,5 @@
 import json
-from datetime import *
+from datetime import date,timedelta
 
 from cron import addCron
 
@@ -9,26 +9,30 @@ from threading import Thread
 
 from getDailyDetail import run as getDeail
 
-from flask import Flask,render_template
-
+from flask import Flask,render_template,jsonify
+from getConfig import *
 
 app = Flask(__name__)
 CORS(app,supports_credentials=True)
 @app.route('/')
 def index():
     today = date.today()
-    jsontmp = getDeail(today)
-    return str(jsontmp)
+    if getTodayStatus():
+        jsontmp = getDeail(today)
+    else:
+        jsontmp = getDeail(today-timedelta(1))
+
+    return jsonify(jsontmp)
 
 
 # 暂时先放这
-@app.route('/api/')
+@app.route('/api/',methods=['GET'])
 @app.route('/api/<yourdate>')
 def api(yourdate = None):
     if yourdate ==None:
         return 'Error date'
     else:
-        return str(getDeail(yourdate))
+        return jsonify(getDeail(yourdate))
 
 # 仅程序第一次运行
 def run():

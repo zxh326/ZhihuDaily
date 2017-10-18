@@ -20,7 +20,9 @@ def getToday(apiUrl,head):
         with open('Apptmp/daily.log','w+') as f:
             f.write(str(data['stories'][-1]))
         log('get daily detail Success!').Loginfo()
+        UpdateTodayStatus('True')
     except Exception as e:
+        UpdateTodayStatus('False')
         log(e).Logerror()
 
 def inSertSql(conn,tb,id,title,today):

@@ -28,7 +28,6 @@ def getJson(question):
     title = question.select('h2.question-title')[0].text
     url = question.select('div.view-more > a')[0]['href']
     answerpool = question.select('div.answer')
-    
     for an in answerpool:
         answer = {}
         answer['body'] = an.select('div.content')[0].text

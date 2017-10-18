@@ -50,6 +50,13 @@ def getDb():
 def getTb():
     return cp['Sql']['TABLE']
 
+def getTodayStatus():
+    return str(True)==cp['Status']['today']
+
+def UpdateTodayStatus(status):
+    cp['Status']['today'] = status
+    with open('config.ini','w+') as f:
+        cp.write(f)
 def getConn():
     try:
         conn = pymysql.connect(host = getSqlAddr() ,port = int(getSqlPort()),user = getSqlUser(),passwd=getSqlPass(),db = getDb(),use_unicode = True,charset ='utf8')
