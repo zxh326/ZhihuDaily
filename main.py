@@ -16,6 +16,7 @@ def run():
     tlist = []
     t1 = Thread(target=getDetail,args=(hostIp(),hostPort(),isDebug(),))
     tlist.append(t1)
+
     if isFirstRun():
         t2 = Thread(target=addCron)
         tlist.append(t2)

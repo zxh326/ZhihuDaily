@@ -87,10 +87,10 @@ def run(ydate):
 
     try:
        if ydate < date(2013,5,23):
-            return 'Error date'
+            return '400'
     except:
         if ydate < '2013-05-23':
-            return 'Error date'
+            return '400'
 
     head['User-Agent'] = getHead()
     conn = getConn()
