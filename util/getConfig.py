@@ -79,5 +79,19 @@ def getConn():
     except Exception as e:
         log("数据库连接错误！"+ str(e)).Logerror()
         return -1
-if __name__ == '__main__':
-    pass
+def inSqldata(mailaccount):
+    conn = getConn()
+    cur = conn.cursor()
+    sql = "INSERT INTO subscriber VALUES (%s)"
+    try:
+        cur.execute(sql,mailaccount)
+        log("Insert Success " + mailaccount ).Loginfo()
+        conn.commit()
+        return True
+    except Exception as e:
+        log("InsertFailed！"+ str(Exception(e))).Logerror()
+        log("InsertFailed！"+ mailaccount ).Logerror()
+        return False
+    cur.close()
+    conn.close()
+

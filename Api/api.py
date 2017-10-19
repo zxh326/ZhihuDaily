@@ -34,6 +34,19 @@ def gp():
 	else:
 	    return jsonify(getDetail(yourdate))
 
+
+@app.route('/mail',methods=['GET'])
+def orderMail():
+	useremail = request.args.get('subr')
+	if useremail == None:
+		abort(400)
+	else:
+		if inSqldata(str(useremail)):
+			return 'Success!'
+		else:
+			return 'Failed!'
+
+
 @app.route('/today/')
 def getToday():
     today = date.today()
