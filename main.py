@@ -1,4 +1,4 @@
-import json
+
 from datetime import date,timedelta
 
 from cron import addCron
@@ -26,8 +26,7 @@ def index():
 
 
 # 暂时先放这
-@app.route('/api/',methods=['GET','POST'])
-@app.route('/api/')
+@app.route('/api',methods=['GET','POST'])
 def api():
 
     if request.method == "POST":
@@ -35,7 +34,7 @@ def api():
     else:
         yourdate = request.args.get('date')
 
-    if yourdate ==None:
+    if yourdate == None or yourdate > str(date.today()):
         return 'Error date'
     else:
         return jsonify(getDeail(yourdate))
