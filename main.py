@@ -9,7 +9,7 @@ from threading import Thread
 
 from getDailyDetail import run as getDeail
 
-from flask import Flask,render_template,jsonify
+from flask import Flask,render_template,jsonify,request
 from getConfig import *
 
 app = Flask(__name__)
@@ -26,9 +26,15 @@ def index():
 
 
 # 暂时先放这
-@app.route('/api/',methods=['GET'])
-@app.route('/api/<yourdate>')
-def api(yourdate = None):
+@app.route('/api/',methods=['GET','POST'])
+@app.route('/api/')
+def api():
+
+    if request.method == "POST":
+        yourdate = request.form.get('date')
+    else:
+        yourdate = request.args.get('date')
+
     if yourdate ==None:
         return 'Error date'
     else:
