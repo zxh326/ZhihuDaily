@@ -67,6 +67,11 @@ def UpdateTodayStatus(status):
 def isFirstRun():
     return cp['Status']['firstrun'] == str('True')
 
+def UpdateFirstRunStatus(status):
+    cp['Status']['firstrun'] = status
+    with open('config.ini','w+') as f:
+        cp.write(f)
+
 def getConn():
     try:
         conn = pymysql.connect(host = getSqlAddr() ,port = int(getSqlPort()),user = getSqlUser(),passwd=getSqlPass(),db = getDb(),use_unicode = True,charset ='utf8')

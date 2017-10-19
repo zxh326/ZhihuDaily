@@ -6,7 +6,7 @@ windows 暂不支持
 
 import sys
 from crontab import CronTab,time
-
+from getConfig import UpdateFirstRunStatus
 def addCron():
     my_user_cron  = CronTab(user=True)
 
@@ -19,7 +19,6 @@ def addCron():
     job1.setall(time(0,0))
 
     my_user_cron.write()
-    print (time(0,0))
-
+    UpdateFirstRunStatus('False')
 if __name__ == '__main__':
     addCron()
