@@ -30,14 +30,14 @@ def getJson(question):
     answerpool = question.select('div.answer')
     for an in answerpool:
         answer = {}
-        answer['body'] = an.select('div.content')[0].text
+        print (an)
+        answer['body'] = an.select('div.content')[0].text.replace('\n','<br>')
         answer['Author'] = an.select('span.author')[0].text
         answer['Author_image'] = an.select('img')[0]['src']
         try:
             answer['Author_bio'] = an.select('span.bio')[0].text
         except :
             answer['Author_bio'] = " "
-            continue
         answers.append(answer)
 
     tmpquestion['title'] = title
