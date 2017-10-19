@@ -1,7 +1,7 @@
 import json
-import requests
 import pymysql
-from getConfig import *
+import requests
+from util.getConfig import *
 from bs4 import BeautifulSoup
 from datetime import timedelta,date
 result = {}
@@ -22,7 +22,7 @@ def getId(conn,date):
         nextday = str(r[2]-timedelta(1))
 
     cur.close()
-
+    conn.close()
     return IDlist
 
 def getJson(question):
@@ -70,6 +70,8 @@ def getBody(head,IDlist):
             question = getJson(divquestion)
             if question is not None:
                 questionlist.append(question)
+            else:
+                pass
 
 
     result['question'] = questionlist
@@ -80,6 +82,9 @@ def getBody(head,IDlist):
 #这里的date 要大于 2013-5-23,知乎日报的生日为 2013-5-19
 
 def run(ydate):
+    global result,questionlist
+    head={};result = {};questionlist = []
+
     try:
        if ydate < date(2013,5,23):
             return 'Error date'
@@ -87,10 +92,9 @@ def run(ydate):
         if ydate < '2013-05-23':
             return 'Error date'
 
-    global result,questionlist
-    head={};result = {};questionlist = []
     head['User-Agent'] = getHead()
     conn = getConn()
+
     IDlist = getId(conn,ydate)
-    conn.close()
+
     return getBody(head,IDlist)

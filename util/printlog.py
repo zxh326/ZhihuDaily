@@ -2,15 +2,14 @@ import os
 import sys
 import logging
 
-os.chdir(sys.path[0])
 class printLog():
     log_file = "Apptmp/logger.log"
     log_level = logging.DEBUG
-     
+
     logger = logging.getLogger("loggingmodule.NomalLogger")
     handler = logging.FileHandler(log_file)
     formatter = logging.Formatter("[%(levelname)s] %(asctime)s %(message)s")
-     
+
     handler.setFormatter(formatter)
     logger.addHandler(handler)
     logger.setLevel(log_level)

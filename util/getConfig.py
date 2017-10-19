@@ -1,19 +1,24 @@
 # coding:utf-8
 import os
-
 import sys
-
 import pymysql
-
-from configparser import ConfigParser
-
 from printlog import printLog as log
+from configparser import ConfigParser
 
 cp = ConfigParser()
 
 os.chdir(sys.path[0])
 
 cp.read('config.ini')
+
+def hostIp():
+    return cp['HOST']['ip']
+
+def hostPort():
+    return cp['HOST']['port']
+
+def isDebug():
+    return cp['HOST']['debug'] == str(True)
 
 # 获取头
 def getHead():
@@ -58,6 +63,10 @@ def UpdateTodayStatus(status):
     cp['Status']['today'] = status
     with open('config.ini','w+') as f:
         cp.write(f)
+
+def isFirstRun():
+    return cp['Status']['firstrun'] == str('True')
+
 def getConn():
     try:
         conn = pymysql.connect(host = getSqlAddr() ,port = int(getSqlPort()),user = getSqlUser(),passwd=getSqlPass(),db = getDb(),use_unicode = True,charset ='utf8')
@@ -65,3 +74,5 @@ def getConn():
     except Exception as e:
         log("数据库连接错误！"+ str(e)).Logerror()
         return -1
+if __name__ == '__main__':
+    pass
