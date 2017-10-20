@@ -30,6 +30,8 @@ def getLastApi():
 
 def getNewsApi():
     return cp['Api']['NEWS']
+def getQiubai():
+    return cp['Api']['qiubai']
 
 # 获取Sql 地址
 def getSqlAddr():
