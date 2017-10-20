@@ -18,7 +18,6 @@ def getId(conn,date):
     cur.execute(sql)
 
     for r in cur:
-        print (r,type(r))
         IDlist.append(r[0])
         nextday = str(r[2]-timedelta(1))
 
