@@ -4,15 +4,12 @@ from getConfig import *
 from flask_cors import *
 from datetime import date,timedelta
 from flask import Flask,jsonify,request,abort
-from getDailyDetail import run as getDetail
+from getDailyDetail import run as getDetail,getRandomDate
+
+
 app = Flask(__name__)
+
 CORS(app,supports_credentials=True)
-
-
-api_list = {
-	'POST': 'POST date=xxxx-xx-xx to localhost:5000:/api',
-	'GET' : 'GET localhost:5000:/api?date=xxxx-xx-xx'
-}
 
 def check(s):
 
@@ -49,7 +46,7 @@ def orderMail():
 
 @app.route('/today/')
 def getToday():
-    today = date.today()
+
     if getTodayStatus():
         jsontmp = getDetail(today)
     else:
@@ -57,5 +54,19 @@ def getToday():
 
     return jsonify(jsontmp)
 
-def run(host = '127.0.0.1',port = '5000',debug = True):
-	app.run(host=host,port=port,debug=debug)
+#随机日期
+@app.route('/random',methods=['GET','POST'])
+def getRandom():
+	if request.method == "POST":
+	    count = request.form.get('count')
+	else:
+	    count = request.args.get('count')
+	if count == None :
+		count = 1
+
+	return jsonify(getRandomDate(count))
+
+
+def run(host = '127.0.0.1',port = '5000',isdebug = True):
+	app.debug = isdebug
+	app.run(host = host,port = port)

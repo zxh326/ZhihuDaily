@@ -18,6 +18,7 @@ def getId(conn,date):
     cur.execute(sql)
 
     for r in cur:
+        print (r,type(r))
         IDlist.append(r[0])
         nextday = str(r[2]-timedelta(1))
 
@@ -57,7 +58,9 @@ def getJson(question):
 
     return tmpquestion
 
-def getBody(head,IDlist):
+def getBody(IDlist):
+    head={}
+    head['User-Agent'] = getHead()
     for ID in IDlist:
         data = requests.get(getNewsApi()+str(ID),headers=head)
         data = json.loads(data.text)
@@ -79,11 +82,30 @@ def getBody(head,IDlist):
 
     return result
 
+
+def getRandomDate(count = 1):
+    global result,questionlist,nextday
+    result = {};questionlist = []
+    IDlist = []
+    conn = getConn()
+    cur = conn.cursor()
+    sql= "SELECT * FROM daily ORDER BY rand() limit " + str(count)
+    cur.execute(sql)
+    for r in cur:
+        IDlist.append(r[0])
+
+    cur.close()
+    conn.close()
+
+#    nextday = ' '
+    return getBody(IDlist)
+
+
 #这里的date 要大于 2013-5-23,知乎日报的生日为 2013-5-19
 
 def run(ydate):
     global result,questionlist
-    head={};result = {};questionlist = []
+    result = {};questionlist = []
 
     try:
        if ydate < date(2013,5,23):
@@ -92,9 +114,9 @@ def run(ydate):
         if ydate < '2013-05-23':
             return '400'
 
-    head['User-Agent'] = getHead()
+
     conn = getConn()
 
     IDlist = getId(conn,ydate)
 
-    return getBody(head,IDlist)
+    return getBody(IDlist)
