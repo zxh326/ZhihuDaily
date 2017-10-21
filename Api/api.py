@@ -3,7 +3,7 @@ import sys
 from getConfig import *
 from flask_cors import *
 from datetime import date,timedelta
-from flask import Flask,jsonify,request,abort
+from flask import Flask,jsonify,request,abort,render_template
 from getDailyDetail import run as getDetail,getRandomDate
 from getQiubai import run as getBai
 
@@ -12,7 +12,6 @@ app = Flask(__name__)
 CORS(app,supports_credentials=True)
 
 def check(s):
-
     return re.search(r'[^-\d]',s)
 api_list = {
     'daily':  '[日报接口]GET / POST [date=xxxx-xx-xx]    localhost:5000:/api/daily ',
@@ -24,7 +23,7 @@ api_list = {
 
 @app.route('/')
 def index():
-    return jsonify(api_list)
+    return render_template('demo.html')
 
 @app.route('/api/daily',methods=['GET','POST'])
 def gp():
