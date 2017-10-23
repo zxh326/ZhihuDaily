@@ -41,7 +41,7 @@ def getJson(question):
 
     for an in answerpool:
         answer = {}
-        answer['body'] = an.select('div.content')[0].text.replace('\n','<br>')
+        answer['body'] = str(an.select('div.content p'))[1:-1]
         answer['Author'] = an.select('span.author')[0].text
         answer['Author_image'] = an.select('img')[0]['src']
         try:
