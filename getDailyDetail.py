@@ -29,7 +29,6 @@ def getJson(question):
     tmpquestion={}
     answers = []
     answer = {}
-
     title = question.select('h2.question-title')[0].text
 
     try:
@@ -41,7 +40,9 @@ def getJson(question):
 
     for an in answerpool:
         answer = {}
-        answer['body'] = str(an.select('div.content p'))[1:-1]
+        tmpcontent = ''
+        for i in an.select('div.content p'):tmpcontent+=str(i)
+        answer['body'] = tmpcontent
         answer['Author'] = an.select('span.author')[0].text
         answer['Author_image'] = an.select('img')[0]['src']
         try:
