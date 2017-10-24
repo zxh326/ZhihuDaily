@@ -14,7 +14,13 @@ def getJson(count,head,url,parameter):
         item = {}
         item['content'] = old_item['content']
         item['votes'] = old_item['votes']
-        item['type'] = old_item['format']
+        # item['type'] = old_item['format']
+        if old_item['format'] != 'word':
+            print (old_item['format'])
+            item['type'] = old_item['format']
+            item['url'] = old_item['high_loc']
+        else:
+            item['type'] = old_item['format']
         try:
             item['user'] = {'name':str(old_item['user']['login']),'image':str(old_item['user']['medium'])}
         except:
