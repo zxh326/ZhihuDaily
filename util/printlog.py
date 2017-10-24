@@ -2,6 +2,7 @@ import os
 import sys
 import logging
 
+
 class printLog():
     log_file = "Apptmp/logger.log"
     log_level = logging.DEBUG
@@ -14,8 +15,7 @@ class printLog():
     logger.addHandler(handler)
     logger.setLevel(log_level)
 
-
-    def __init__(self,log):
+    def __init__(self, log):
         self.log = log
 
     def Logdebug(self):
