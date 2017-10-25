@@ -44,7 +44,7 @@ def getJson(question):
     for an in answerpool:
         answer = {}
         tmpcontent = ''
-        for i in an.select('div.content p'):
+        for i in an.select('div.content'):
             tmpcontent += str(i)
         answer['body'] = tmpcontent
         answer['Author'] = an.select('span.author')[0].text
