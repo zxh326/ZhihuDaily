@@ -89,6 +89,7 @@ def getBody(IDlist):
 
 def getRandomDate(count=1):
     global result, questionlist, nextday
+    nextday = ''
     result = {}
     questionlist = []
     IDlist = []
@@ -98,7 +99,7 @@ def getRandomDate(count=1):
     cur.execute(sql)
     for r in cur:
         IDlist.append(r[0])
-        nextday += str(r[2])
+        nextday+=str(r[2])
     cur.close()
     conn.close()
 
